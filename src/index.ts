@@ -2,9 +2,9 @@ import express from "express"
 import cors from "cors"
 import { connectDB } from "./config/mongodb"
 import dotenv from "dotenv"
-import authRoute from "./routes/authRoutes"
 import perfumeRouter from "./routes/perfumeRoutes"
-
+import authRoute from "./routes/authRoutes"
+import logger from "./config/logger"
 
 dotenv.config()
 
@@ -24,6 +24,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.use(logger)
 
 app.get("/", (__, res) => {
   res.json({ status: true })
