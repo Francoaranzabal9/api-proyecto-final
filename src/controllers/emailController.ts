@@ -5,11 +5,6 @@ export const sendEmailController = async (req: Request, res: Response) => {
   try {
     const { email, subject, message } = req.body;
 
-    if (!email || !subject || !message) {
-      res.status(400).json({ success: false, error: 'Todos los campos son requeridos: email, subject, message' });
-      return;
-    }
-
     const data = await sendEmail({ to: email, subject, message });
 
     res.status(200).json({ success: true, data: { message: 'Email enviado correctamente', info: data } });

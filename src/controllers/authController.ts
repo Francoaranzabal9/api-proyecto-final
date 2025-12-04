@@ -16,10 +16,6 @@ class authController {
       const hash = await bcrypt.hash(password, 10)
       const newUser = new User({ email, password: hash })
 
-      if (!email || !password) {
-        return res.status(400).json({ success: false, error: "Debes completar todos los campos" })
-      }
-
       const user = await User.findOne({ email })
 
       if (user) {
@@ -50,9 +46,6 @@ class authController {
   static loginUser = async (req: Request, res: Response): Promise<void | Response> => {
     try {
       const { email, password } = req.body
-      if (!email || !password) {
-        return res.status(400).json({ success: false, error: "Debes completar todos los campos" })
-      }
 
       const user = await User.findOne({ email })
 

@@ -8,3 +8,11 @@
 ::1 POST /auth/register 409 68 - 148.897 ms
 ::1 POST /auth/register 200 55 - 3447.517 ms
 ::1 POST /auth/register 200 55 - 3155.782 ms
+::1 POST /auth/register 400 54 - 8.170 ms
+::1 POST /auth/register 400 54 - 1.321 ms
+::1 POST /auth/register 400 54 - 0.829 ms
+::1 POST /auth/register 400 54 - 1.017 ms
+::1 POST /auth/register 400 54 - 0.785 ms
+::1 POST /auth/register 429 74 - 0.644 ms
+::1 POST /auth/register 429 74 - 0.484 ms
+::1 POST /auth/register 409 68 - 1617.677 ms

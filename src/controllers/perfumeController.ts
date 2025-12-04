@@ -1,8 +1,5 @@
 import { Request, Response } from "express"
 import perfume from "../model/PerfumeModel"
-import { Types } from "mongoose"
-import { perfumeSchemaValidator, updatePerfumeSchemaValidator } from "../validators/perfumeValidator"
-
 
 class perfumeController {
   static getAllPerfumes = async (req: Request, res: Response) => {
@@ -18,7 +15,6 @@ class perfumeController {
   static getPerfumeById = async (req: Request, res: Response) => {
     try {
       const { id } = req.params
-      if (!Types.ObjectId.isValid(id)) return res.status(400).json({ success: false, error: "ID invalido" })
 
       const findedPerfume = await perfume.findById(id)
 
@@ -34,18 +30,14 @@ class perfumeController {
 
   static addPerfume = async (req: Request, res: Response) => {
     try {
-      const validation = perfumeSchemaValidator.safeParse(req.body)
+      const body = req.body
 
-      if (!validation.success) {
-        return res.status(400).json({ success: false, error: validation.error })
-      }
-
-      const existingPerfume = await perfume.findOne({ name: validation.data.name })
+      const existingPerfume = await perfume.findOne({ name: body.name })
       if (existingPerfume) {
         return res.status(400).json({ success: false, error: "El perfume ya existe" })
       }
 
-      const newPerfume = new perfume(validation.data)
+      const newPerfume = new perfume(body)
 
       await newPerfume.save()
       return res.status(201).json({ success: true, data: newPerfume })
@@ -59,15 +51,7 @@ class perfumeController {
       const { id } = req.params
       const body = req.body
 
-      if (!Types.ObjectId.isValid(id)) return res.status(400).json({ success: false, error: "ID invalido" })
-
-      const validation = updatePerfumeSchemaValidator.safeParse(body)
-
-      if (!validation.success) {
-        return res.status(400).json({ success: false, error: validation.error })
-      }
-
-      const updatedPerfume = await perfume.findByIdAndUpdate(id, validation.data, { new: true })
+      const updatedPerfume = await perfume.findByIdAndUpdate(id, body, { new: true })
 
       if (!updatedPerfume) {
         return res.status(404).json({ success: false, error: "Perfume no encontrado" })
@@ -82,8 +66,6 @@ class perfumeController {
   static deletePerfume = async (req: Request, res: Response) => {
     try {
       const { id } = req.params
-
-      if (!Types.ObjectId.isValid(id)) return res.status(400).json({ success: false, error: "ID invalido" })
 
       const deletedPerfume = await perfume.findByIdAndDelete(id)
 

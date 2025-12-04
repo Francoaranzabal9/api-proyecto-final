@@ -15,7 +15,7 @@ export interface Perfume {
 
   stock: boolean;
 
-  image: string;
+  image?: string;
 
   notes: {
     output: string[];
