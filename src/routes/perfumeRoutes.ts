@@ -13,10 +13,10 @@ perfumeRouter.get("/", perfumeController.getAllPerfumes)
 
 perfumeRouter.get("/:id", validateParams(idSchema), perfumeController.getPerfumeById)
 
-perfumeRouter.post("/", authMiddleware, validateSchema(perfumeSchemaValidator), upload.single("image"), perfumeController.addPerfume)
+perfumeRouter.post("/", authMiddleware, upload.single("image"), validateSchema(perfumeSchemaValidator), perfumeController.addPerfume)
 
 perfumeRouter.delete("/:id", authMiddleware, validateParams(idSchema), perfumeController.deletePerfume)
 
-perfumeRouter.patch("/:id", authMiddleware, validateParams(idSchema), validateSchema(updatePerfumeSchemaValidator), upload.single("image"), perfumeController.updatePerfume)
+perfumeRouter.patch("/:id", authMiddleware, validateParams(idSchema), upload.single("image"), validateSchema(updatePerfumeSchemaValidator), perfumeController.updatePerfume)
 
 export default perfumeRouter

@@ -16,3 +16,15 @@
 ::1 POST /auth/register 429 74 - 0.644 ms
 ::1 POST /auth/register 429 74 - 0.484 ms
 ::1 POST /auth/register 409 68 - 1617.677 ms
+::1 POST /perfumes 401 49 - 2.276 ms
+::1 POST /auth/login 200 207 - 158.692 ms
+::1 POST /perfumes 400 78 - 3.883 ms
+::1 POST /perfumes 400 78 - 17.495 ms
+::1 POST /perfumes 400 78 - 5.011 ms
+::1 POST /perfumes 400 78 - 5.863 ms
+::1 POST /perfumes 201 527 - 142.601 ms
+::1 POST /perfumes 400 48 - 53.267 ms
+::1 GET /perfumes 200 3812 - 45.769 ms
+::1 GET /perfumes/6931c565d8a4a2aa9e86f316 200 527 - 47.307 ms
+::1 DELETE /perfumes/6931c565d8a4a2aa9e86f316 200 527 - 54.475 ms
+::1 POST /perfumes 201 527 - 96.700 ms
