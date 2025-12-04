@@ -3,16 +3,16 @@ import { sendEmail } from '../services/emailService';
 
 export const sendEmailController = async (req: Request, res: Response) => {
   try {
-    const { to, subject, html, text } = req.body;
+    const { email, subject, message } = req.body;
 
-    if (!to || !subject || !html) {
-      res.status(400).json({ success: false, error: 'Todos los campos son requeridos: to, subject, html' });
+    if (!email || !subject || !message) {
+      res.status(400).json({ success: false, error: 'Todos los campos son requeridos: email, subject, message' });
       return;
     }
 
-    const data = await sendEmail({ to, subject, html, text });
+    const data = await sendEmail({ to: email, subject, message });
 
-    res.status(200).json({ success: true, data: { message: 'Email enviado correctamente', ...data } });
+    res.status(200).json({ success: true, data: { message: 'Email enviado correctamente', info: data } });
   } catch (error) {
     const e = error as Error
     console.error('Error al enviar el email:', e);

@@ -1,0 +1,10 @@
+::1 GET / 200 15 - 2.409 ms
+::1 GET /favicon.ico 404 38 - 1.275 ms
+::1 GET /products 404 38 - 0.390 ms
+::1 GET /perfumes 200 3308 - 65.924 ms
+::1 POST /auth/register 200 55 - 635.294 ms
+::1 POST /auth/register 200 55 - 634.277 ms
+::1 POST /auth/register 200 55 - 2672.500 ms
+::1 POST /auth/register 409 68 - 148.897 ms
+::1 POST /auth/register 200 55 - 3447.517 ms
+::1 POST /auth/register 200 55 - 3155.782 ms

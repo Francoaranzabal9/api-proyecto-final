@@ -1,10 +1,25 @@
-import { Resend } from 'resend';
-import dotenv from 'dotenv';
+import nodemailer from "nodemailer"
+import dotenv from "dotenv"
 
-dotenv.config();
+dotenv.config()
 
-if (!process.env.RESEND_API_KEY) {
-  console.warn('RESEND_API_KEY is not defined in .env file');
-}
+const USER = process.env.EMAIL_USER
+const PASS = process.env.EMAIL_PASS
 
-export const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: USER,
+    pass: PASS
+  }
+})
+
+transporter.verify().then(() => {
+  console.log("✅ Nodemailer está listo para enviar correos");
+}).catch((error) => {
+  console.error("❌ Error configurando Nodemailer:", error);
+});
+
+export default transporter

@@ -1,30 +1,24 @@
-import { resend } from '../config/emailConfig';
+import transporter from "../config/emailConfig"
+import createTemplate from "../templates/emailTemplate"
 
 interface SendEmailProps {
-  to: string | string[];
-  subject: string;
-  html: string;
-  text?: string;
+  to: string
+  subject: string
+  message: string
 }
 
-export const sendEmail = async ({ to, subject, html, text }: SendEmailProps) => {
+export const sendEmail = async ({ to, subject, message }: SendEmailProps) => {
   try {
-    const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev', // Cambia esto por tu dominio verificado en producción
-      to,
+    const info = await transporter.sendMail({
+      from: `"Tienda de software" <${process.env.EMAIL_USER}>`,
+      to: to,
       subject,
-      html,
-      text
-    });
+      html: createTemplate(subject, message),
+    })
 
-    if (error) {
-      console.error('Error sending email:', error);
-      throw new Error(error.message);
-    }
-
-    return data;
+    return info
   } catch (error) {
-    console.error('Error in sendEmail service:', error);
-    throw error;
+    console.error("Error en servicio sendEmail:", error)
+    throw error
   }
-};
+}

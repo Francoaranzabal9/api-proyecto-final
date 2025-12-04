@@ -3,6 +3,7 @@ import User from "../model/UserModel"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
 import { getEnv } from "../config/env"
+import { sendEmail } from "../services/emailService"
 
 
 class authController {
@@ -26,12 +27,23 @@ class authController {
       }
 
       await newUser.save()
+
+      try {
+        await sendEmail({
+          to: email,
+          subject: "Bienvenido a Sello Dorado",
+          message: "Gracias por registrarte en nuestra plataforma. Esperamos que disfrutes de nuestros servicios."
+        })
+      } catch (emailError) {
+        console.error("Error al enviar email de bienvenida:", emailError)
+      }
       res.status(200).json({ success: true, data: "Usuario registrado con éxito" })
     } catch (e) {
       const error = e as Error
       if (error.name === "MongoServerError") {
         return res.status(409).json({ success: false, error: "Usuario existente en nuestra base de datos" })
       }
+      return res.status(500).json({ success: false, error: "Error interno del servidor", details: error.message })
     }
   }
 
