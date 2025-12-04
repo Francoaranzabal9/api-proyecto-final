@@ -28,3 +28,8 @@
 ::1 GET /perfumes/6931c565d8a4a2aa9e86f316 200 527 - 47.307 ms
 ::1 DELETE /perfumes/6931c565d8a4a2aa9e86f316 200 527 - 54.475 ms
 ::1 POST /perfumes 201 527 - 96.700 ms
+::1 GET /perfumes 200 529 - 58.343 ms
+::1 PATCH /perfumes/691d0624c4c71313ae6884d9 401 49 - 0.982 ms
+::1 POST /perfumes 400 78 - 14.336 ms
+::1 POST /perfumes 400 78 - 5.467 ms
+::1 POST /perfumes 201 542 - 134.201 ms

@@ -7,6 +7,7 @@ import authRoute from "./routes/authRoutes"
 import logger from "./config/logger"
 import morgan from "morgan"
 import emailRouter from "./routes/emailRoutes"
+import path from "path"
 
 dotenv.config()
 
@@ -27,6 +28,8 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan("dev"))
 app.use(logger)
+
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")))
 
 app.get("/", (__, res) => {
   res.json({ status: true })

@@ -6,6 +6,7 @@ import { validateParams } from "../middlewares/validateParams"
 import { perfumeSchemaValidator, updatePerfumeSchemaValidator } from "../validators/perfumeValidator"
 import { idSchema } from "../validators/commonValidator"
 import { upload } from "../middlewares/uploadMiddleware"
+import { processImage } from "../middlewares/processImage"
 
 const perfumeRouter = Router()
 
@@ -13,10 +14,10 @@ perfumeRouter.get("/", perfumeController.getAllPerfumes)
 
 perfumeRouter.get("/:id", validateParams(idSchema), perfumeController.getPerfumeById)
 
-perfumeRouter.post("/", authMiddleware, upload.single("image"), validateSchema(perfumeSchemaValidator), perfumeController.addPerfume)
+perfumeRouter.post("/", authMiddleware, upload.single("image"), processImage, validateSchema(perfumeSchemaValidator), perfumeController.addPerfume)
 
 perfumeRouter.delete("/:id", authMiddleware, validateParams(idSchema), perfumeController.deletePerfume)
 
-perfumeRouter.patch("/:id", authMiddleware, validateParams(idSchema), upload.single("image"), validateSchema(updatePerfumeSchemaValidator), perfumeController.updatePerfume)
+perfumeRouter.patch("/:id", authMiddleware, validateParams(idSchema), upload.single("image"), processImage, validateSchema(updatePerfumeSchemaValidator), perfumeController.updatePerfume)
 
 export default perfumeRouter
