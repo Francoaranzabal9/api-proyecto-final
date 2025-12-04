@@ -23,12 +23,12 @@ class perfumeController {
       const findedPerfume = await perfume.findById(id)
 
       if (!findedPerfume) {
-        return res.status(404).json({ success: false, message: "No se pudo encontrar el perfume" })
+        return res.status(404).json({ success: false, error: "No se pudo encontrar el perfume" })
       }
 
       return res.status(200).json({ success: true, data: findedPerfume })
     } catch (e) {
-      return res.status(400).json({ success: false, error: "error al obtener el perfume o el ID ingresado es invalido" })
+      return res.status(400).json({ success: false, error: "Error al obtener el perfume o el ID ingresado es inválido" })
     }
   }
 
@@ -42,7 +42,7 @@ class perfumeController {
 
       const existingPerfume = await perfume.findOne({ name: validation.data.name })
       if (existingPerfume) {
-        return res.status(400).json({ success: false, message: "El perfume ya existe" })
+        return res.status(400).json({ success: false, error: "El perfume ya existe" })
       }
 
       const newPerfume = new perfume(validation.data)
@@ -70,7 +70,7 @@ class perfumeController {
       const updatedPerfume = await perfume.findByIdAndUpdate(id, validation.data, { new: true })
 
       if (!updatedPerfume) {
-        return res.status(404).json({ success: false, message: "Perfume no encontrado" })
+        return res.status(404).json({ success: false, error: "Perfume no encontrado" })
       }
 
       return res.json({ success: true, data: updatedPerfume })
@@ -88,7 +88,7 @@ class perfumeController {
       const deletedPerfume = await perfume.findByIdAndDelete(id)
 
       if (!deletedPerfume) {
-        return res.status(404).json({ success: false, message: "Perfume no encontrado" })
+        return res.status(404).json({ success: false, error: "Perfume no encontrado" })
       }
 
       return res.json({ success: true, data: deletedPerfume })

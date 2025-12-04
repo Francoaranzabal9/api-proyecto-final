@@ -5,6 +5,8 @@ import dotenv from "dotenv"
 import perfumeRouter from "./routes/perfumeRoutes"
 import authRoute from "./routes/authRoutes"
 import logger from "./config/logger"
+import morgan from "morgan"
+import emailRouter from "./routes/emailRoutes"
 
 dotenv.config()
 
@@ -23,7 +25,7 @@ const app = express()
 //middlewares
 app.use(cors())
 app.use(express.json())
-
+app.use(morgan("dev"))
 app.use(logger)
 
 app.get("/", (__, res) => {
@@ -32,6 +34,7 @@ app.get("/", (__, res) => {
 
 app.use("/auth", authRoute)
 app.use("/perfumes", perfumeRouter)
+app.use("/email", emailRouter)
 
 app.use((__, res) => {
   res.status(404).json({ error: "El recurso no se encuentra" })

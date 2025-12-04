@@ -16,21 +16,21 @@ class authController {
       const newUser = new User({ email, password: hash })
 
       if (!email || !password) {
-        return res.status(400).json({ success: false, data: "debes completar todos los campos" })
+        return res.status(400).json({ success: false, error: "Debes completar todos los campos" })
       }
 
       const user = await User.findOne({ email })
 
       if (user) {
-        return res.status(409).json({ success: false, data: "el usuario ya existe en la db" })
+        return res.status(409).json({ success: false, error: "El usuario ya existe en la base de datos" })
       }
 
       await newUser.save()
-      res.status(200).json({ success: true, data: "usuario registrado con exito" })
+      res.status(200).json({ success: true, data: "Usuario registrado con éxito" })
     } catch (e) {
       const error = e as Error
       if (error.name === "MongoServerError") {
-        return res.status(409).json({ success: false, error: "usuario existente en nuestra base de datos" })
+        return res.status(409).json({ success: false, error: "Usuario existente en nuestra base de datos" })
       }
     }
   }
@@ -39,24 +39,24 @@ class authController {
     try {
       const { email, password } = req.body
       if (!email || !password) {
-        return res.status(400).json({ success: false, data: "debes completar todos los campos" })
+        return res.status(400).json({ success: false, error: "Debes completar todos los campos" })
       }
 
       const user = await User.findOne({ email })
 
       if (!user) {
-        return res.status(401).json({ success: false, data: "no autorizado" })
+        return res.status(401).json({ success: false, error: "No autorizado" })
       }
 
       const isValid = await bcrypt.compare(password, user.password)
 
       if (!isValid) {
-        return res.status(401).json({ success: false, data: "no autorizado" })
+        return res.status(401).json({ success: false, error: "No autorizado" })
       }
       const { JWT_SECRET } = getEnv()
       const token = jwt.sign({ id: user._id }, JWT_SECRET as string, { expiresIn: "1h" })
 
-      res.json({ success: true, token: token })
+      res.json({ success: true, data: { token } })
     } catch (e) {
       const error = e as Error
       res.status(500).json({ success: false, error: error.message })
