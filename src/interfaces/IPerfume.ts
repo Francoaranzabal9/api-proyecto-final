@@ -16,10 +16,4 @@ export interface Perfume {
   stock: boolean;
 
   image?: string;
-
-  notes: {
-    output: string[];
-    heart: string[];
-    deepNotes: string[];
-  };
 }

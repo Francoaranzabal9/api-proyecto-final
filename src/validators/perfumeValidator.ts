@@ -10,11 +10,7 @@ const perfumeCreateSchema = z.object({
   price: z.number().positive(),
   stock: z.boolean().default(true),
   image: z.string().url(),
-  notes: z.object({
-    output: z.array(z.string()),
-    heart: z.array(z.string()),
-    deepNotes: z.array(z.string()),
-  }),
+
 })
 
 export const perfumeSchemaValidator = perfumeCreateSchema
