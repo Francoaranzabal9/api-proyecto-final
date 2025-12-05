@@ -4,7 +4,28 @@ import perfume from "../model/PerfumeModel"
 class perfumeController {
   static getAllPerfumes = async (req: Request, res: Response) => {
     try {
-      const perfumeList = await perfume.find()
+
+      const { name, brand, stock, genre, concentration, volumeMl, minPrice, maxPrice, description } = req.query
+
+      const filter: any = {}
+
+      if (name) filter.name = new RegExp(String(name), "i")
+      if (brand) filter.brand = new RegExp(String(brand), "i")
+      if (stock) filter.stock = Number(stock)
+      if (genre) filter.genre = new RegExp(String(genre), "i")
+      if (concentration) filter.concentration = new RegExp(String(concentration), "i")
+      if (volumeMl) filter.volumeMl = Number(volumeMl)
+      if (minPrice || maxPrice) {
+        filter.price = {}
+
+        if (minPrice) filter.price.$gte = minPrice
+
+        if (maxPrice) filter.price.$lte = maxPrice
+      }
+
+      if (description) filter.description = new RegExp(String(description), "i")
+
+      const perfumeList = await perfume.find(filter)
       return res.json({ success: true, data: perfumeList })
     } catch (e) {
       const error = e as Error

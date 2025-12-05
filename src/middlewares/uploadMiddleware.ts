@@ -8,7 +8,16 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const name = Date.now() + "-" + crypto.randomUUID()
-    cb(null, name + path.extname(file.originalname))
+    let ext = path.extname(file.originalname)
+
+    if (!ext) {
+      if (file.mimetype === "image/jpeg") ext = ".jpg"
+      else if (file.mimetype === "image/png") ext = ".png"
+      else if (file.mimetype === "image/webp") ext = ".webp"
+      else if (file.mimetype === "image/gif") ext = ".gif"
+    }
+
+    cb(null, name + ext)
   }
 })
 

@@ -8,6 +8,7 @@ import logger from "./config/logger"
 import morgan from "morgan"
 import emailRouter from "./routes/emailRoutes"
 import path from "path"
+import fs from "fs"
 
 dotenv.config()
 
@@ -29,7 +30,12 @@ app.use(express.json())
 app.use(morgan("dev"))
 app.use(logger)
 
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")))
+const uploadsPath = path.join(__dirname, "../uploads")
+
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true })
+}
+app.use("/uploads", express.static(uploadsPath))
 
 app.get("/", (__, res) => {
   res.json({ status: true })
