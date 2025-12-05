@@ -2,14 +2,11 @@
   "name": "api-proyecto-final",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts"
-  },
-  "engines": {
-    "node": "24.x"
+    "dev": "ts-node-dev src/index.ts"
   },
   "keywords": [],
   "author": "",

@@ -20,7 +20,7 @@ declare global {
   }
 }
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 const app = express()
 
@@ -33,7 +33,11 @@ app.use(logger)
 const uploadsPath = path.join(__dirname, "../uploads")
 
 if (!fs.existsSync(uploadsPath)) {
-  fs.mkdirSync(uploadsPath, { recursive: true })
+  try {
+    fs.mkdirSync(uploadsPath, { recursive: true })
+  } catch (error) {
+    console.warn("Could not create uploads directory:", error)
+  }
 }
 app.use("/uploads", express.static(uploadsPath))
 
@@ -51,10 +55,8 @@ app.use((__, res) => {
 
 connectDB()
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`✅ Servidor en escucha en el puerto http://localhost:${PORT}`)
-  })
-}
+app.listen(PORT, () => {
+  console.log(`✅ Servidor en escucha en el puerto http://localhost:${PORT}`)
+})
 
 export default app
