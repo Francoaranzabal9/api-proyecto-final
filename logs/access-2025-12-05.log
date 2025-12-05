@@ -728,3 +728,11 @@
 ::1 GET /uploads/1764939988126-f91f710f-5264-4422-9342-d76ce8166dc0.jpg 304 - - 1.933 ms
 ::1 GET /uploads/1764944583920-23d64a04-c80c-4c14-8329-2a2b11422579.jpg 304 - - 1.139 ms
 ::1 GET /perfumes? 304 - - 43.718 ms
+::1 PATCH /perfumes/6932d8d47baedd454c99d668 200 345 - 1323.519 ms
+::1 GET /uploads/uploads/yara-1764970174301 404 38 - 1.937 ms
+::1 GET /uploads/uploads/yara-1764970174301 404 38 - 1.005 ms
+::1 GET /uploads/uploads/yara-1764970174301 404 38 - 0.676 ms
+::1 PATCH /perfumes/6932d8d47baedd454c99d668 200 345 - 1170.574 ms
+::1 GET /uploads/uploads/yara-1764970195567 404 38 - 1.046 ms
+::1 PATCH /perfumes/6932d8d47baedd454c99d668 200 381 - 1286.239 ms
+::1 PATCH /perfumes/6931c95ea0dbe03a5b7619da 200 556 - 1309.316 ms

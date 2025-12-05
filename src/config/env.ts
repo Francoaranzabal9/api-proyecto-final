@@ -1,3 +1,5 @@
+import "dotenv/config"
+
 export const getEnv = () => {
   return {
     PORT: process.env.PORT,

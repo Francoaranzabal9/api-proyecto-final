@@ -10,6 +10,8 @@ Esta es una API RESTful desarrollada con Node.js, Express y TypeScript para la g
 -   **JWT (JSON Web Tokens)**: Para la autenticación segura de usuarios.
 -   **Zod**: Para la validación de esquemas de datos (entradas de API).
 -   **Multer**: Middleware para la gestión de subida de archivos (imágenes).
+-   **Cloudinary**: Servicio en la nube para el almacenamiento y gestión de imágenes.
+-   **Express Rate Limit**: Middleware para limitar el tráfico y prevenir ataques de fuerza bruta.
 -   **Nodemailer / Resend**: Para el envío de correos electrónicos.
 -   **Cors & Morgan**: Middlewares para seguridad y registro de peticiones (logging).
 
@@ -44,6 +46,11 @@ Antes de comenzar, asegúrate de tener instalado:
     URI_DB=tu_string_de_conexion_a_mongodb
     EMAIL_USER=tu_email_para_enviar_correos
     EMAIL_PASS=tu_contraseña_de_aplicacion_o_api_key
+    
+    # Cloudinary
+    CLOUDINARY_CLOUD_NAME=tu_cloud_name
+    CLOUDINARY_API_KEY=tu_api_key
+    CLOUDINARY_API_SECRET=tu_api_secret
     ```
 
 ##  Ejecución
@@ -89,7 +96,7 @@ Este proyecto está configurado para ser desplegado fácilmente en plataformas c
 4.  Render detectará automáticamente el comando de construcción (`npm run build`) y de inicio (`npm start`).
 5.  **Importante:** No olvides configurar las variables de entorno en el panel de administración de Render.
 
-> **Nota sobre subida de archivos:** En plataformas con sistema de archivos efímero (como Render o Vercel), las imágenes subidas localmente a la carpeta `uploads/` pueden desaparecer al reiniciarse el servidor. Para producción, se recomienda integrar un servicio de almacenamiento en la nube como Cloudinary o AWS S3.
+> **Almacenamiento de Imágenes:** El proyecto utiliza **Cloudinary** para el almacenamiento de imágenes, lo que garantiza que los archivos persistan correctamente incluso en plataformas con sistemas de archivos efímeros como Render o Vercel. Asegúrate de configurar las credenciales de Cloudinary en las variables de entorno.
 
 ## Autor
 
