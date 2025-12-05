@@ -9,7 +9,7 @@
     "dev": "nodemon src/index.ts"
   },
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "keywords": [],
   "author": "",
