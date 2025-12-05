@@ -1,24 +1,17 @@
 import multer from "multer"
-import path from "path"
-import crypto from "crypto"
+import { CloudinaryStorage } from "multer-storage-cloudinary"
+import cloudinary from "../config/cloudinary"
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/")
-  },
-  filename: (req, file, cb) => {
-    const name = Date.now() + "-" + crypto.randomUUID()
-    let ext = path.extname(file.originalname)
-
-    if (!ext) {
-      if (file.mimetype === "image/jpeg") ext = ".jpg"
-      else if (file.mimetype === "image/png") ext = ".png"
-      else if (file.mimetype === "image/webp") ext = ".webp"
-      else if (file.mimetype === "image/gif") ext = ".gif"
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "uploads",
+    allowed_formats: ["jpg", "png", "jpeg", "gif", "webp"],
+    public_id: (req: any, file: any) => {
+      const name = file.originalname.split(".")[0]
+      return `${name}-${Date.now()}`
     }
-
-    cb(null, name + ext)
-  }
+  } as any
 })
 
 const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
@@ -27,7 +20,6 @@ const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.
   } else {
     cb(new Error("Solo se permiten archivos de imagen"))
   }
-
 }
 
 const upload = multer({ storage, fileFilter })
