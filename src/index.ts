@@ -49,7 +49,12 @@ app.use((__, res) => {
   res.status(404).json({ error: "El recurso no se encuentra" })
 })
 
-app.listen(PORT, () => {
-  connectDB()
-  console.log(`✅ Servidor en escucha en el puerto http://localhost:${PORT}`)
-})
+connectDB()
+
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`✅ Servidor en escucha en el puerto http://localhost:${PORT}`)
+  })
+}
+
+export default app
