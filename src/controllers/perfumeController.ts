@@ -63,6 +63,7 @@ class perfumeController {
       await newPerfume.save()
       return res.status(201).json({ success: true, data: newPerfume })
     } catch (e) {
+      console.error(e);
       return res.status(500).json({ success: false, error: "Error al crear el perfume" })
     }
   }

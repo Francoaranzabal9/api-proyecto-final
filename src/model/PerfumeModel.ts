@@ -10,7 +10,7 @@ const perfumeSchema = new Schema<Perfume>({
   description: { type: String, required: [true, 'La descripción corta es obligatoria.'] },
   price: { type: Number, required: [true, 'El precio es obligatorio.'] },
   stock: { type: Boolean, default: true },
-  image: { type: String, required: [true, 'La imagen es obligatoria.'] }
+  image: { type: String }
 }, {
   timestamps: true,
   versionKey: false

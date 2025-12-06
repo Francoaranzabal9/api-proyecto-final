@@ -1,12 +1,12 @@
 import rateLimit from "express-rate-limit";
 
 const limiter = rateLimit({
-  windowMs: 5 * 60 * 1000,
+  windowMs: 1 * 60 * 1000,
   max: 5,
   handler: (req, res, next, options) => {
     res.status(429).json({
       success: false,
-      error: `Limite alcanzado ${options.max} solicitudes cada ${options.windowMs / 1000 / 60} minutos`
+      error: `Limite alcanzado ${options.max} solicitudes cada ${options.windowMs / 1000 / 60} minuto`
     })
   }
 })

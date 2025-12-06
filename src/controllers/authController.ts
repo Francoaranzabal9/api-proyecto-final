@@ -50,13 +50,13 @@ class authController {
       const user = await User.findOne({ email })
 
       if (!user) {
-        return res.status(401).json({ success: false, error: "No autorizado" })
+        return res.status(401).json({ success: false, error: "El usuario no existe" })
       }
 
       const isValid = await bcrypt.compare(password, user.password)
 
       if (!isValid) {
-        return res.status(401).json({ success: false, error: "No autorizado" })
+        return res.status(401).json({ success: false, error: "Contraseña incorrecta" })
       }
       const { JWT_SECRET } = getEnv()
       const token = jwt.sign({ id: user._id }, JWT_SECRET as string, { expiresIn: "1h" })
