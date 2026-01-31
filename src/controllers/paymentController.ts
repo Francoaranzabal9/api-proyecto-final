@@ -98,9 +98,9 @@ export const createOrder = async (req: Request, res: Response) => {
         // En api-proyecto-final/src/controllers/paymentController.ts
 
         back_urls: {
-          success: "https://api-sello-dorado.onrender.com/success",
-          failure: "https://api-sello-dorado.onrender.com/failure",
-          pending: "https://api-sello-dorado.onrender.com/pending",
+          success: "https://el-sello-dorado.vercel.app/success",
+          failure: "https://el-sello-dorado.vercel.app/failure",
+          pending: "https://el-sello-dorado.vercel.app/pending",
         },
         auto_return: "approved",
         payer: {
