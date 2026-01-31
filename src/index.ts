@@ -9,6 +9,7 @@ import morgan from "morgan"
 import emailRouter from "./routes/emailRoutes"
 import path from "path"
 import fs from "fs"
+import paymentRouter from "./routes/paymentRoutes"
 
 dotenv.config()
 
@@ -48,6 +49,7 @@ app.get("/", (__, res) => {
 app.use("/auth", authRoute)
 app.use("/perfumes", perfumeRouter)
 app.use("/email", emailRouter)
+app.use("/payment", paymentRouter)
 
 app.use((__, res) => {
   res.status(404).json({ error: "El recurso no se encuentra" })
