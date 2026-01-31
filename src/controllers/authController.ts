@@ -59,12 +59,35 @@ class authController {
         return res.status(401).json({ success: false, error: "Contraseña incorrecta" })
       }
       const { JWT_SECRET } = getEnv()
-      const token = jwt.sign({ id: user._id }, JWT_SECRET as string, { expiresIn: "1h" })
+      const token = jwt.sign(
+        {
+          id: user._id,
+          role: user.role || "user"
+        },
+        JWT_SECRET as string,
+        { expiresIn: "1h" }
+      )
 
       res.json({ success: true, data: { token } })
     } catch (e) {
       const error = e as Error
       res.status(500).json({ success: false, error: error.message })
+    }
+  }
+
+  static promoteToAdmin = async (req: Request, res: Response): Promise<void | Response> => {
+    try {
+      const { email } = req.body;
+      const user = await User.findOneAndUpdate({ email }, { role: "admin" }, { new: true });
+
+      if (!user) {
+        return res.status(404).json({ success: false, error: "Usuario no encontrado" });
+      }
+
+      res.status(200).json({ success: true, data: "Usuario promovido a admin", user });
+    } catch (e) {
+      const error = e as Error
+      res.status(500).json({ success: false, error: "Error al promover usuario", details: error.message })
     }
   }
 }

@@ -10,7 +10,7 @@ interface SendEmailProps {
 export const sendEmail = async ({ to, subject, message }: SendEmailProps) => {
   try {
     const info = await transporter.sendMail({
-      from: `"Tienda de software" <${process.env.EMAIL_USER}>`,
+      from: `"Sello Dorado" <${process.env.EMAIL_USER}>`,
       to: to,
       subject,
       html: createTemplate(subject, message),

@@ -10,6 +10,7 @@ const authRoute = Router()
 
 authRoute.post("/login", limiter, validateSchema(loginSchema), authController.loginUser)
 authRoute.post("/register", limiter, validateSchema(registerSchema), authController.registerUser)
+authRoute.patch("/promote", authController.promoteToAdmin)
 
 
 export default authRoute

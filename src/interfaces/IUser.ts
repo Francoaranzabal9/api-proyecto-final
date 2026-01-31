@@ -1,6 +1,7 @@
 interface IUser {
   email: string,
-  password: string
+  password: string,
+  role?: "user" | "admin"
 }
 
 
